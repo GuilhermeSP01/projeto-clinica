@@ -1,6 +1,6 @@
 package br.unip.projeto_clinica.security;
 
-import br.unip.projeto_clinica.model.user.UserDetailsServiceImpl;
+import br.unip.projeto_clinica.service.UserDetailsServiceImpl;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
