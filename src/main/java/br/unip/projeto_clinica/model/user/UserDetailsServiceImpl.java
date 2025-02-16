@@ -1,4 +1,4 @@
-package br.unip.projeto_clinica.user;
+package br.unip.projeto_clinica.model.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

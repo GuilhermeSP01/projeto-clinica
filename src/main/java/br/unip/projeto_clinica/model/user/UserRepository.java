@@ -1,4 +1,4 @@
-package br.unip.projeto_clinica.user;
+package br.unip.projeto_clinica.model.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
