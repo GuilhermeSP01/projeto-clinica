@@ -1,4 +1,4 @@
-package br.unip.projeto_clinica.model.user;
+package br.unip.projeto_clinica.model.usuario;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

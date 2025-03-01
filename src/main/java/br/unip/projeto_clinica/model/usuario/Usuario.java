@@ -1,4 +1,4 @@
-package br.unip.projeto_clinica.model.user;
+package br.unip.projeto_clinica.model.usuario;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 @Document("usuarios")
-public class User {
+public class Usuario {
 
     @Id
     private String id;
@@ -18,7 +18,7 @@ public class User {
     private String senha;
     private Collection<? extends GrantedAuthority> roles;
 
-    public User(String id, String cpf, String nome, String telefone, String email, String senha, Collection<? extends GrantedAuthority> roles) {
+    public Usuario(String id, String cpf, String nome, String telefone, String email, String senha, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -28,7 +28,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User() { }
+    public Usuario() { }
 
     public String getId() {
         return id;

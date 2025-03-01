@@ -1,6 +1,6 @@
 package br.unip.projeto_clinica.service;
 
-import br.unip.projeto_clinica.model.usuario.Usuario;
+import br.unip.projeto_clinica.model.usuario.User;
 import br.unip.projeto_clinica.model.usuario.UserPrincipal;
 import br.unip.projeto_clinica.model.usuario.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = userRepository.findByEmail(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        return new UserPrincipal(usuario);
+        return new UserPrincipal(user);
     }
 
 }
