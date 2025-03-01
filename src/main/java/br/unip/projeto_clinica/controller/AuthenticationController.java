@@ -35,13 +35,13 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        if(user.getUsername() == null || user.getPassword() == null)
+        if(user.getEmail() == null || user.getSenha() == null)
             return ResponseEntity.badRequest().body("Faltando nome de usuário ou senha");
 
-        if(userRepository.findByUsername(user.getUsername()).isPresent())
+        if(userRepository.findByEmail(user.getEmail()).isPresent())
             return ResponseEntity.badRequest().body("Nome de usuário indisponível");
 
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setSenha(encoder.encode(user.getSenha()));
         user.setRoles(List.of(() -> "USER"));
         userRepository.save(user);
 
@@ -71,7 +71,7 @@ public class AuthenticationController {
         if(username == null)
             return ResponseEntity.badRequest().body("Forneça o nome de usuário");
 
-        User user = userRepository.findByUsername(username).orElse(null);
+        User user = userRepository.findByEmail(username).orElse(null);
 
         if(user == null)
             return ResponseEntity.badRequest().body("Usuário não encontrado");

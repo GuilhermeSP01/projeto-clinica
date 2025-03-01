@@ -1,10 +1,9 @@
 package br.unip.projeto_clinica.model.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByUsername(String username);
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByEmail(String email);
 }

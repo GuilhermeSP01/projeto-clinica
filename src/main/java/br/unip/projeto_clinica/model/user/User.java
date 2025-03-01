@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-@Document
+@Document("usuarios")
 public class User {
 
     @Id
@@ -18,9 +18,6 @@ public class User {
     private String senha;
     private Collection<? extends GrantedAuthority> roles;
 
-    public User() {
-    }
-
     public User(String id, String cpf, String nome, String telefone, String email, String senha, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.cpf = cpf;
@@ -30,6 +27,8 @@ public class User {
         this.senha = senha;
         this.roles = roles;
     }
+
+    public User() { }
 
     public String getId() {
         return id;
@@ -99,5 +98,5 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
-    
+
 }
