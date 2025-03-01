@@ -2,8 +2,8 @@ package br.unip.projeto_clinica.controller;
 
 import br.unip.projeto_clinica.model.jwt.JwtRequest;
 import br.unip.projeto_clinica.model.jwt.JwtResponse;
-import br.unip.projeto_clinica.model.user.User;
-import br.unip.projeto_clinica.model.user.UserRepository;
+import br.unip.projeto_clinica.model.usuario.Usuario;
+import br.unip.projeto_clinica.model.usuario.UserRepository;
 import br.unip.projeto_clinica.service.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,16 +34,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        if(user.getUsername() == null || user.getPassword() == null)
+    public ResponseEntity<?> register(@RequestBody Usuario usuario) {
+        if(usuario.getEmail() == null || usuario.getSenha() == null)
             return ResponseEntity.badRequest().body("Faltando nome de usuário ou senha");
 
-        if(userRepository.findByUsername(user.getUsername()).isPresent())
+        if(userRepository.findByEmail(usuario.getEmail()).isPresent())
             return ResponseEntity.badRequest().body("Nome de usuário indisponível");
 
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setRoles(List.of(() -> "USER"));
-        userRepository.save(user);
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        usuario.setRoles(List.of(() -> "USER"));
+        userRepository.save(usuario);
 
         return ResponseEntity.ok().build();
     }
@@ -71,13 +71,13 @@ public class AuthenticationController {
         if(username == null)
             return ResponseEntity.badRequest().body("Forneça o nome de usuário");
 
-        User user = userRepository.findByUsername(username).orElse(null);
+        Usuario usuario = userRepository.findByEmail(username).orElse(null);
 
-        if(user == null)
+        if(usuario == null)
             return ResponseEntity.badRequest().body("Usuário não encontrado");
 
-        user.setRoles(List.of(() -> "ADMIN"));
-        userRepository.save(user);
+        usuario.setRoles(List.of(() -> "ADMIN"));
+        userRepository.save(usuario);
 
         return ResponseEntity.ok().build();
     }
