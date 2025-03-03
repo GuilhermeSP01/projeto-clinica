@@ -26,7 +26,7 @@ public class IdosoService {
         Optional<Idoso> idosoExistente = idosoRepository.findById(id);
 
         if (idosoExistente.isPresent()) {
-            idosoAtualizado.setId(id);
+            idosoAtualizado.setId(String.valueOf(id));
             return idosoRepository.save(idosoAtualizado);
         } else {
             return null;
