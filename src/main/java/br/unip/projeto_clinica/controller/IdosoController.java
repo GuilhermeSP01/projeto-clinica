@@ -1,6 +1,7 @@
 package br.unip.projeto_clinica.controller;
 
 import br.unip.projeto_clinica.model.idoso.Idoso;
+import br.unip.projeto_clinica.model.usuario.Usuario;
 import br.unip.projeto_clinica.service.IdosoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,13 @@ public class IdosoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Idoso> getIdosoById(@PathVariable Long id) {
-        return idosoService.getIdosoPorId(id);
+    public ResponseEntity<?> getIdosoById(@PathVariable String id) {
+        Optional<Idoso> usuario = idosoService.getIdosoPorId(id);
+        if(usuario.isPresent()){
+            return ResponseEntity.ok(usuario.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
+        }
     }
 
     @PostMapping
@@ -36,21 +42,21 @@ public class IdosoController {
     }
 
     @PutMapping("/{id}")
-        public ResponseEntity<Idoso> atualizarIdoso(@PathVariable Long id, @RequestBody Idoso idosoAtualizado) {
+        public ResponseEntity<?> atualizarIdoso(@PathVariable String id, @RequestBody Idoso idosoAtualizado) {
             Idoso idosoSalvo = idosoService.atualizarIdoso(id, idosoAtualizado);
 
             if (idosoSalvo != null) {
-                return ResponseEntity.ok(idosoSalvo);
+                return ResponseEntity.ok("Usuário atualizado com sucesso!");
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
             }
         }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIdoso(@PathVariable Long id) {
+    public ResponseEntity<?> deleteIdoso(@PathVariable String id) {
         if (idosoService.deletarIdoso(id)) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Usuário deletado com sucesso!");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
         }
     }
     }

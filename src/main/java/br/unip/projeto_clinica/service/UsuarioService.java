@@ -14,23 +14,23 @@ public class UsuarioService {
     public List<Usuario> getTodosUsuarios() {
         return usuarioRepository.findAll();
     }
-    public Optional<Usuario> getUsuarioPorId(Long id) {
+    public Optional<Usuario> getUsuarioPorId(String id) {
         return usuarioRepository.findById(id);
     }
     public Usuario salvarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
-    public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
+    public Usuario atualizarUsuario(String id, Usuario usuarioAtualizado) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findById(id);
 
         if (usuarioExistente.isPresent()) {
-            usuarioAtualizado.setId(String.valueOf(id));
+            usuarioAtualizado.setId(id);
             return usuarioRepository.save(usuarioAtualizado);
         } else {
             return null;
         }
     }
-    public boolean deletarUsuario(Long id) {
+    public boolean deletarUsuario(String id) {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);
             return true;

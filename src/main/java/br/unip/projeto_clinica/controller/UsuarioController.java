@@ -1,8 +1,5 @@
 package br.unip.projeto_clinica.controller;
-
-import br.unip.projeto_clinica.model.idoso.Idoso;
 import br.unip.projeto_clinica.model.usuario.Usuario;
-import br.unip.projeto_clinica.service.IdosoService;
 import br.unip.projeto_clinica.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +24,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Usuario> getUsuarioById(@PathVariable Long id) {
-        return usuarioService.getUsuarioPorId(id);
+    public ResponseEntity<?> getUsuarioById(@PathVariable String id) {
+    Optional<Usuario> usuario = usuarioService.getUsuarioPorId(id);
+    if(usuario.isPresent()){
+        return ResponseEntity.ok(usuario.get());
+    } else {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
     }
-
+    }
     @PostMapping
     public ResponseEntity<Usuario> createIdoso(@RequestBody Usuario usuario) {
         Usuario novoUsuario = usuarioService.salvarUsuario(usuario);
@@ -38,21 +39,21 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+    public ResponseEntity<?> atualizarUsuario(@PathVariable String id, @RequestBody Usuario usuarioAtualizado) {
         Usuario usuarioSalvo = usuarioService.atualizarUsuario(id, usuarioAtualizado);
 
         if (usuarioSalvo != null) {
-            return ResponseEntity.ok(usuarioSalvo);
+            return ResponseEntity.ok("Usuário atualizado com sucesso!");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUsuario(@PathVariable String id) {
         if (usuarioService.deletarUsuario(id)) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Usuário deletado com sucesso!");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
         }
     }
 }

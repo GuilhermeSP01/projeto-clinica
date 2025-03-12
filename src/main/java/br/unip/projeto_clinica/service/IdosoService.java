@@ -16,23 +16,23 @@ public class IdosoService {
     public List<Idoso> getTodosIdosos() {
         return idosoRepository.findAll();
     }
-    public Optional<Idoso> getIdosoPorId(Long id) {
+    public Optional<Idoso> getIdosoPorId(String id) {
         return idosoRepository.findById(id);
     }
     public Idoso salvarIdoso(Idoso idoso) {
         return idosoRepository.save(idoso);
     }
-    public Idoso atualizarIdoso(Long id, Idoso idosoAtualizado) {
+    public Idoso atualizarIdoso(String id, Idoso idosoAtualizado) {
         Optional<Idoso> idosoExistente = idosoRepository.findById(id);
 
         if (idosoExistente.isPresent()) {
-            idosoAtualizado.setId(String.valueOf(id));
+            idosoAtualizado.setId(id);
             return idosoRepository.save(idosoAtualizado);
         } else {
             return null;
         }
     }
-    public boolean deletarIdoso(Long id) {
+    public boolean deletarIdoso(String id) {
         if (idosoRepository.existsById(id)) {
             idosoRepository.deleteById(id);
             return true;
