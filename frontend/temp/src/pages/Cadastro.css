@@ -1,0 +1,25 @@
+.cadastro-container {
+    min-height: 100vh;
+    background-color: #f5f5dc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro-container h1 {
+    font-size: 3rem;
+    color: black;
+}
+
+.cadastro-form button {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.cadastro-form button:hover {
+    background-color: #ddd;
+}
