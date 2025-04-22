@@ -1,12 +1,22 @@
 package br.unip.projeto_clinica.controller;
-import br.unip.projeto_clinica.model.usuario.Usuario;
-import br.unip.projeto_clinica.service.UsuarioService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.unip.projeto_clinica.model.usuario.Usuario;
+import br.unip.projeto_clinica.service.EmailService;
+import br.unip.projeto_clinica.service.UsuarioService;
 
 @RestController
 @RequestMapping(value="/api/admin/usuarios")
@@ -56,4 +66,21 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
         }
     }
+    @RestController
+    @RequestMapping("/email")
+    public class EmailController {
+
+        @Autowired
+        private EmailService emailService;
+
+        @GetMapping("/teste")
+        public String enviarTeste() {
+            return emailService.enviarEmailTexto(
+                "seu.email.de.teste@gmail.com",
+                "Teste de envio",
+                "Esse é um teste de envio de e-mail pelo sistema da clínica."
+            );
+        }
+    }
+
 }
