@@ -31,14 +31,6 @@ public class UsuarioService {
 
     public Usuario salvarUsuario(Usuario usuario) {
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
-        
-        // Envia e-mail após salvar o usuário
-        emailService.enviarEmailTexto(
-            usuario.getEmail(), 
-            "Email enviado", 
-            "Usuário cadastrado com sucesso"
-        );
-
         return usuarioSalvo;
     }
 

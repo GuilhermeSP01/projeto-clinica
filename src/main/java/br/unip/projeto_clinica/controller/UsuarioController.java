@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unip.projeto_clinica.model.usuario.Usuario;
@@ -66,21 +67,8 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sem conteúdo!");
         }
     }
-    @RestController
-    @RequestMapping("/email")
-    public class EmailController {
-
-        @Autowired
-        private EmailService emailService;
-
-        @GetMapping("/teste")
-        public String enviarTeste() {
-            return emailService.enviarEmailTexto(
-                "seu.email.de.teste@gmail.com",
-                "Teste de envio",
-                "Esse é um teste de envio de e-mail pelo sistema da clínica."
-            );
-        }
-    }
+   
 
 }
+
+
