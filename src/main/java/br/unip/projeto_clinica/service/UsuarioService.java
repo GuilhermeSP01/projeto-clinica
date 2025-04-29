@@ -11,10 +11,6 @@ import br.unip.projeto_clinica.model.usuario.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-
-    @Autowired
-    private EmailService emailService;
-
     private final UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {

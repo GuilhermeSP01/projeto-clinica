@@ -1,31 +1,26 @@
 package br.unip.projeto_clinica.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import br.unip.projeto_clinica.Email;
+
 @Service
 public class EmailService {
-	
- @Autowired
-  private JavaMailSender javaMailSender;
- 
- @Value("${spring.mail.username}")
- private String remetente;
- public String enviarEmailTexto(String destinatario, String assunto, String mensagem) {
-	    try {
-	        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-	        simpleMailMessage.setFrom(remetente);
-	        simpleMailMessage.setTo(destinatario);
-	        simpleMailMessage.setSubject(assunto);
-	        simpleMailMessage.setText(mensagem);
-	        javaMailSender.send(simpleMailMessage);
-	        return "Email enviado";
-	    } catch (Exception e) {
-	        e.printStackTrace(); // Adiciona isso para mostrar o erro completo no console
-	        return "Erro ao tentar enviar email: " + e.getMessage();
-	    }
+	private final JavaMailSender mailSender;
+
+	public EmailService(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
 	}
+	public void sendEmail(Email email) {
+		var message = new SimpleMailMessage();
+		message.setFrom("noreply@mail.com");
+		message.setTo(email.to());
+		message.setSubject(email.subject());
+		message.setText(email.body());
+		mailSender.send(message);
+		
+	}
+	
 }

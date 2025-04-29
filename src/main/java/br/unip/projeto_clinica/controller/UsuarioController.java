@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unip.projeto_clinica.model.usuario.Usuario;
-import br.unip.projeto_clinica.service.EmailService;
 import br.unip.projeto_clinica.service.UsuarioService;
 
 @RestController
